@@ -2,11 +2,11 @@
 \c booktown
 --Task 1
 --1.
-SELECT VALUE last_name, first_name
+SELECT last_name, first_name
 FROM authors
 WHERE author_id = (
 	SELECT author_id
 	FROM books
-	WHERE title='The Shining'
+	WHERE title = 'The Shining'
 );
 --2.
