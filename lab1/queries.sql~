@@ -30,7 +30,7 @@ WHERE author_id = (
 SELECT last_name, first_name
 FROM customers
 INNER JOIN shipments
-	ON customers.customer_id = shipments.customer_id
+	ON customers.customer_id=shipments.customer_id
 INNER JOIN editions
 	ON shipments.isbn = editions.isbn
 INNER JOIN books
@@ -50,14 +50,3 @@ WHERE stock = (
 	FROM stock
 );
 
-\echo *** Task 1.5 *** \echo
-
-SELECT SUM(retail_price)
-FROM stock
-INNER JOIN editions
-	ON stock.isbn = editions.isbn
-INNER JOIN books
-        ON editions.book_id = books.book_id
-INNER JOIN subjects
-        ON books.subject_id = subjects.subject_id
-WHERE subject = 'Science Fiction';
