@@ -61,3 +61,24 @@ INNER JOIN books
 INNER JOIN subjects
         ON books.subject_id = subjects.subject_id
 WHERE subject = 'Science Fiction';
+
+\echo *** Task 1.6 *** \echo
+
+SELECT title
+FROM books
+INNER JOIN editions
+	ON books.book_id = editions.book_id
+INNER JOIN shipments
+	ON editions.isbn = shipments.isbn
+GROUP BY books.title
+HAVING COUNT (customer_id) = 2;
+
+\echo *** Task 1.7 *** \echo
+
+SELECT name, cost
+SELECT *
+FROM publishers
+JOIN editions
+	ON publishers.publisher_id = editions.publisher_id
+JOIN stock
+	ON editions.isbn = stock.isbn;
