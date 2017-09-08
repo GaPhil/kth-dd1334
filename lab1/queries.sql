@@ -1,7 +1,8 @@
 -- use booktown db instead of personal one to avoid accidentaly modifying db
 \c booktown \echo
 
---Task 1
+\echo *** Task 1 *** \echo
+---> NEW TASK <---
 
 \echo *** Task 1.1 *** \echo
 
@@ -24,6 +25,7 @@ WHERE author_id = (
 );
 
 \echo *** Task 1.3 *** \echo
+-- avoid inner join, since it returns duplicate attributes
 
 SELECT last_name, first_name
 FROM customers
@@ -47,3 +49,4 @@ WHERE stock = (
 	SELECT max(stock)
 	FROM stock
 );
+
