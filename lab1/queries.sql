@@ -99,15 +99,14 @@ SELECT SUM(retail_price - cost)
 FROM shipments, stock
 WHERE shipments.isbn = stock.isbn;
 
-
 \echo *** Task 1.9 *** \echo
 
 SELECT last_name, first_name
 FROM customers, shipments, editions, books, subjects
-WHERE customers.customer_id = shipments.customer_id
+WHERE ( customers.customer_id = shipments.customer_id
 	AND shipments.isbn = editions.isbn
 	AND editions.book_id = books.book_id
 	AND books.subject_id = subjects.subject_id
+	)
 GROUP BY customers.last_name, customers.first_name
 HAVING COUNT (subjects.subject_id) > 2;
-
