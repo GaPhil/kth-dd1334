@@ -91,3 +91,19 @@ INNER JOIN editions
 INNER JOIN shipments
 	ON editions.isbn = shipments.isbn;
 --> TODO
+
+\echo *** Task 1.8 *** \echo
+
+SELECT SUM (cost)
+
+SELECT *
+FROM stock
+JOIN shipments
+	ON stock.isbn = stock.isbn
+
+
+
+SELECT SUM (retail_price)
+FROM shipments
+JOIN stock
+	ON shipments.isbn = stock.isbn;
