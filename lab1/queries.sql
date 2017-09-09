@@ -111,22 +111,18 @@ WHERE ( customers.customer_id = shipments.customer_id
 GROUP BY customers.last_name, customers.first_name
 HAVING COUNT (subjects.subject_id) > 2;
 
-\echo *** Task 1.9 *** \echo
+\echo *** Task 1.10 *** \echo
+-- find all sold subjects and subtract from all possible subjects
 
 SELECT a.subject
-FROM (  SELECT DISTINCT subject
-	FROM shipments, editions, books, subjects
+FROM ( 	SELECT subject
+	FROM subjects
+	) AS a
+WHERE subject NOT IN (
+	SELECT DISTINCT subject
+        FROM shipments, editions, books, subjects
         WHERE ( shipments.isbn = editions.isbn
                 AND editions.book_id = books.book_id
                 AND books.subject_id = subjects.subject_id
-                )
-	) AS a
-WHERE subject NOT IN (
-	SELECT subject
-	FROM subjects
+        )
 );
-
-
-SELECT a.subject
-FROM ( SELECT subject
-	
