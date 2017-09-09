@@ -94,16 +94,7 @@ INNER JOIN shipments
 
 \echo *** Task 1.8 *** \echo
 
-SELECT SUM (cost)
-
-SELECT *
-FROM stock
-JOIN shipments
-	ON stock.isbn = stock.isbn
-
-
-
-SELECT SUM (retail_price)
+SELECT SUM (retail_price - cost)
 FROM shipments
 JOIN stock
 	ON shipments.isbn = stock.isbn;
