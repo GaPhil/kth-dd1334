@@ -76,20 +76,20 @@ HAVING COUNT (customer_id) = 2;
 \echo *** Task 1.7 *** \echo
 
 --> TODO
-SELECT name, cost
-SELECT *
-FROM publishers
-INNER JOIN editions
-	ON publishers.publisher_id = editions.publisher_id
-INNER JOIN stock
-	ON editions.isbn = stock.isbn;
+--SELECT name, cost
+--SELECT *
+--FROM publishers
+--INNER JOIN editions
+--	ON publishers.publisher_id = editions.publisher_id
+--INNER JOIN stock
+--	ON editions.isbn = stock.isbn;
 
-SELECT *
-FROM publishers
-INNER JOIN editions
-	ON publishers.publisher_id = editions.publisher_id
-INNER JOIN shipments
-	ON editions.isbn = shipments.isbn;
+--SELECT *
+--FROM publishers
+--INNER JOIN editions
+--	ON publishers.publisher_id = editions.publisher_id
+--INNER JOIN shipments
+--	ON editions.isbn = shipments.isbn;
 --> TODO
 
 \echo *** Task 1.8 *** \echo
