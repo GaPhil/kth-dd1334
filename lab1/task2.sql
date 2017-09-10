@@ -32,3 +32,23 @@ VALUES (12345, 'How I Insert');
 INSERT INTO editions(isbn, book_id, edition, publisher_id, publication_date)
 VALUES ('5555', 12345, 1, 59, '2012-12-02');
 SELECT * FROM books;
+
+\echo *** Task 2.5 *** \echo
+
+UPDATE books
+SET subject_id = 10
+WHERE book_id = 12345;
+
+\echo *** Task 2.6 *** \echo
+
+--DELETE FROM books
+--WHERE book_id = 12345;
+\echo ERROR:  update or delete on table "books" violates foreign key constraint "editions_book_id_fkey" on table "editions"
+\echo DETAIL:  Key (book_id)=(12345) is still referenced from table "editions".
+
+\echo *** Task 2.7 *** \echo
+
+DELETE FROM editions
+WHERE isbn = '5555';
+DELETE FROM books
+WHERE book_id = 12345;
