@@ -6,7 +6,9 @@ DROP FUNCTION decstock() CASCADE;
 CREATE FUNCTION decstock()
   RETURNS TRIGGER AS $pname$
 BEGIN
-  IF stock.stock == 0
+  IF (SELECT NEW.isbn
+      FROM stock
+     ) IS NULL
     THEN RAISE EXCEPTION 'There is no stock to ship';
   ELSE -- do insert and update stock
     -- selects most recently added shipment and reduces that isbn's stock
@@ -25,8 +27,16 @@ END;
 $pname$ LANGUAGE plpgsql;
 
 CREATE TRIGGER reduce_stock
-AFTER INSERT ON shipment
+AFTER INSERT ON shipments
 FOR EACH ROW
 EXECUTE PROCEDURE decstock();
 
-DROP FUNCTION decstock() CASCADE;
+-- Output: the whole table before making shipments.
+SELECT *
+FROM stock;
+
+INSERT INTO shipments
+VALUES (2000, 860, '0394900014', '2012-12-07');
+
+-- DROP FUNCTION decstock() CASCADE;
+
