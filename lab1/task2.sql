@@ -4,9 +4,11 @@
 \echo *** Task 2.1 *** \echo
 
 CREATE VIEW isbn_and_title AS
-SELECT isbn, title
-FROM editions, books
-WHERE editions.book_id = books.book_id;
+  SELECT
+    isbn,
+    title
+  FROM editions, books
+  WHERE editions.book_id = books.book_id;
 
 DROP VIEW isbn_and_title;
 
@@ -19,19 +21,20 @@ DROP VIEW isbn_and_title;
 
 \echo *** Task 2.3 *** \echo
 
---INSERT INTO editions(isbn)
---VALUES ('5555');
+-- INSERT INTO editions(isbn)
+-- VALUES ('5555');
 \echo ERROR:  new row for relation "editions" violates check constraint "integrity"
 \echo DETAIL:  Failing row contains (5555, null, null, null, null).
 
 \echo *** Task 2.4 *** \echo
 -- no need for author or subject, since author_id and subject_id are foreign keys in books
 
-INSERT INTO books(book_id, title)
+INSERT INTO books (book_id, title)
 VALUES (12345, 'How I Insert');
-INSERT INTO editions(isbn, book_id, edition, publisher_id, publication_date)
+INSERT INTO editions (isbn, book_id, edition, publisher_id, publication_date)
 VALUES ('5555', 12345, 1, 59, '2012-12-02');
-SELECT * FROM books;
+SELECT *
+FROM books;
 
 \echo *** Task 2.5 *** \echo
 
@@ -41,8 +44,8 @@ WHERE book_id = 12345;
 
 \echo *** Task 2.6 *** \echo
 
---DELETE FROM books
---WHERE book_id = 12345;
+-- DELETE FROM books
+-- WHERE book_id = 12345;
 \echo ERROR:  update or delete on table "books" violates foreign key constraint "editions_book_id_fkey" on table "editions"
 \echo DETAIL:  Key (book_id)=(12345) is still referenced from table "editions".
 
@@ -55,8 +58,8 @@ WHERE book_id = 12345;
 
 \echo *** Task 2.8 *** \echo
 
---INSERT INTO books(book_id, title, subject_id)
---VALUES (12345, 'How I Insert', 3443);
+-- INSERT INTO books(book_id, title, subject_id)
+-- VALUES (12345, 'How I Insert', 3443);
 \echo ERROR:  insert or update on table "books" violates foreign key constraint "books_subject_id_fkey"
 \echo DETAIL:  Key (subject_id)=(3443) is not present in table "subjects".
 
