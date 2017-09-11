@@ -1,0 +1,55 @@
+*** Task 2 ***
+
+*** Task 2.1 ***
+
+CREATE VIEW
+DROP VIEW
+*** Task 2.2 ***
+
+ERROR: insert or update on table "editions" violates foreign key constraint "editions_book_id_fkey"
+DETAIL: Key (book_id)=(12345) is not present in table "books".
+*** Task 2.3 ***
+
+ERROR: new row for relation "editions" violates check constraint "integrity"
+DETAIL: Failing row contains (5555, null, null, null, null).
+*** Task 2.4 ***
+
+INSERT 0 1
+INSERT 0 1
+ book_id |            title            | author_id | subject_id 
+---------+-----------------------------+-----------+------------
+    7808 | The Shining                 |      4156 |          9
+    4513 | Dune                        |      1866 |         15
+    4267 | 2001: A Space Odyssey       |      2001 |         15
+    1608 | The Cat in the Hat          |      1809 |          2
+    1590 | Bartholomew and the Oobleck |      1809 |          2
+   25908 | Franklin in the Dark        |     15990 |          2
+    1501 | Goodnight Moon              |      2031 |          2
+     190 | Little Women                |        16 |          6
+    1234 | The Velveteen Rabbit        |     25041 |          3
+    2038 | Dynamic Anatomy             |      1644 |          0
+     156 | The Tell-Tale Heart         |       115 |          9
+   41473 | Programming Python          |      7805 |          4
+   41477 | Learning Python             |      7805 |          4
+   41478 | Perl Cookbook               |      7806 |          4
+   41472 | Practical PostgreSQL        |      1212 |          4
+   12345 | How I Insert                |           |           
+(16 rows)
+
+*** Task 2.5 ***
+
+UPDATE 1
+*** Task 2.6 ***
+
+ERROR: update or delete on table "books" violates foreign key constraint "editions_book_id_fkey" on table "editions"
+DETAIL: Key (book_id)=(12345) is still referenced from table "editions".
+*** Task 2.7 ***
+
+DELETE 1
+DELETE 1
+*** Task 2.8 ***
+
+ERROR: insert or update on table "books" violates foreign key constraint "books_subject_id_fkey"
+DETAIL: Key (subject_id)=(3443) is not present in table "subjects".
+*** Task 2.9 ***
+
