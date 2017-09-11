@@ -52,3 +52,12 @@ DELETE FROM editions
 WHERE isbn = '5555';
 DELETE FROM books
 WHERE book_id = 12345;
+
+\echo *** Task 2.8 *** \echo
+
+--INSERT INTO books(book_id, title, subject_id)
+--VALUES (12345, 'How I Insert', 3443);
+\echo ERROR:  insert or update on table "books" violates foreign key constraint "books_subject_id_fkey"
+\echo DETAIL:  Key (subject_id)=(3443) is not present in table "subjects".
+
+\echo *** Task 2.9 *** \echo
