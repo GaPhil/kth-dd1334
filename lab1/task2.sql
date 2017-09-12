@@ -66,8 +66,8 @@ WHERE book_id = 12345;
 \echo *** Task 2.9 *** \echo
 
 ALTER TABLE books
-ADD CONSTRAINT hasSubject
-CHECK  (subject_id IS NOT NULL);
+  ADD CONSTRAINT hasSubject
+CHECK (subject_id IS NOT NULL);
 
 -- INSERT INTO books(book_id, title)
 -- VALUES (12345, 'How I insert');
@@ -75,4 +75,4 @@ CHECK  (subject_id IS NOT NULL);
 \echo DETAIL:  Failing row contains (12345, How I insert, null, null).
 
 ALTER TABLE books
-DROP CONSTRAINT  hasSubject;
+  DROP CONSTRAINT hasSubject;
