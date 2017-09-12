@@ -64,3 +64,18 @@ WHERE book_id = 12345;
 \echo DETAIL:  Key (subject_id)=(3443) is not present in table "subjects".
 
 \echo *** Task 2.9 *** \echo
+
+ALTER TABLE books
+ADD CONSTRAINT hasSubject
+CHECK (subject_id IS NOT NULL);
+
+ALTER TABLE books
+DROP CONSTRAINT hasSubject;
+
+-- INSERT INTO books(book_id, title)
+-- VALUES (12345, 'How I insert');
+\echo ERROR:  null value in column "subject_id" violates not-null constraint
+\echo DETAIL:  Failing row contains (12345, How I insert, null, null).
+
+ALTER TABLE books
+DROP hasSubject;
