@@ -108,6 +108,8 @@ SELECT a.subject
 FROM (SELECT subject
       FROM subjects
      ) AS a
+-- SELECT subject
+-- FROM subjects
 WHERE subject NOT IN (
   SELECT DISTINCT subject
   FROM shipments, editions, books, subjects

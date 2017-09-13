@@ -22,6 +22,7 @@ END;
 $pname$ LANGUAGE plpgsql;
 
 CREATE TRIGGER reduce_stock
+-- doesn't matter whether it's before or after -- RAISE EXCEPTION does role back
 AFTER INSERT ON shipments
 FOR EACH ROW
 EXECUTE PROCEDURE decstock();
