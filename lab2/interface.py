@@ -29,7 +29,7 @@ class DBContext:
         print("AUTHORS NOTE: If you submit faulty information here, I am not responsible for the consequences.")
 
 # we need to call the connect function with the right parameters some
-# of wheich we 'hard code here such as the host, wnd others we call
+# of which we 'hard code here such as the host, and others we call
 # the built in python function raw_input to get from the user.  All are stored in a variable that we chose to call params.
         params = {'host':'nestor2.csc.kth.se', 'user':raw_input("Username: "), 'database':raw_input("Database: "), 'password':raw_input("Password: ")}
         self.conn = pgdb.connect(**params)
