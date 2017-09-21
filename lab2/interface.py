@@ -31,7 +31,8 @@ class DBContext:
 
         # we need to call the connect function with the right parameters some
         # of which we 'hard code here such as the host, and others we call
-        # the built in python function raw_input to get from the user.  All are stored in a variable that we chose to call params.
+        # the built in python function raw_input to get from the user.
+        # All are stored in a variable that we chose to call params.
         params = {'host': 'nestor2.csc.kth.se', 'user': raw_input("Username: "), 'database': raw_input("Database: "),
                   'password': raw_input("Password: ")}
         self.conn = pgdb.connect(**params)
@@ -44,7 +45,8 @@ class DBContext:
 
     # Here we define a member function that we can later call repeatedly
     def print_menu(self):
-        """Prints a menu of all functions this program offers.  Returns the numerical correspondent of the choice made."""
+        """Prints a menu of all functions this program offers.
+        Returns the numerical correspondent of the choice made."""
         for i, x in enumerate(self.menu):
             print("%i. %s" % (i + 1, x))
             # this get_int function is defined below
@@ -136,14 +138,18 @@ class DBContext:
         """Removes tuples.
         Will query the user for the information required to identify a tuple.
         If the filter field is left blank, no filters will be used."""
-        tables = [x.strip() + " natural join " for x in raw_input("Choose table(s): ").split(",")]
 
+        table = raw_input("Enter the table you wish to delete from: ")
+        column = raw_input("Enter the column that you wish to delete from: ")
+        value = raw_input("Enter the value of the the column: ")
         try:
-            remove_query =
+            remove_query = """DELETE FROM %s WHERE %s = %s;""" % (table, column, value)
         except (NameError, ValueError, TypeError, SyntaxError):
-            print
-
-        pass
+            print "  Bad input."
+            return
+        print(remove_query)
+        self.cur.execute(remove_query)
+        # self.print_answer()
 
     def insert(self):
         """inserts tuples.
@@ -177,7 +183,8 @@ class DBContext:
                 print("Bad choice")
 
 
-# This strange looking line is what kicks it all off.  So python reads until it sees this then starts executing what comes after-
+# This strange looking line is what kicks it all off.
+# So python reads until it sees this then starts executing what comes after-
 if __name__ == "__main__":
     db = DBContext()
     db.run()
