@@ -9,9 +9,6 @@
 # use.  For example you can now use the pgdb.connect() function to
 # establish a connection to your copy of the database. 
 
-# Possibly helpful example code is found at:
-# https://wiki.inf.ed.ac.uk/twiki/pub/DatabaseGroup/TeachingPythonPostgreGuide/dbexample.py.txt
-
 import pgdb
 from sys import argv
 
@@ -58,20 +55,13 @@ class DBContext:
         while True:
             # we go round here until we get to return (ie while True)
 
-            #  The try statement works as follows.  First, the try
-            #  clause (the statement(s) between the try and except
-            #  keywords) is executed. If no exception occurs, the except
-            #  clause is skipped and execution of the try statement is
-            #  finished. If an exception occurs during execution of the
-            #  try clause, the rest of the clause is skipped. Then if
-            #  its type matches the exception named after the except
-            #  keyword, the except clause is executed, and then
-            #  execution continues after the try statement.  If an
-            #  exception occurs which does not match the exception named
-            #  in the except clause, it is passed on to outer try
-            #  statements; if no handler is found, it is an unhandled
-            #  exception and execution stops with a message as shown
-            #  above.
+            #  The try statement works as follows.  First, the try clause (the statement(s) between the try and except
+            #  keywords) is executed. If no exception occurs, the except clause is skipped and execution of the try
+            # statement is finished. If an exception occurs during execution of the try clause, the rest of the clause
+            # is skipped. Then if its type matches the exception named after the except keyword, the except clause is
+            # executed, and then execution continues after the try statement.  If an exception occurs which does not
+            # match the exception named in the except clause, it is passed on to outer try statements; if no handler is
+            # found, it is an unhandled exception and execution stops with a message as shown above.
             try:
                 # an Error here (ie wrong input type) jumps to except
                 choice = int(input("Choose: "))
@@ -88,15 +78,11 @@ class DBContext:
         """Finds and prints tuples.
         Will query the user for the information required to identify a tuple.
         If the filter field is left blank, no filter will be used."""
-        # raw_input returns the entire line entered at the prompt. The
-        # split(",") method then creates a list of the relations
-        # (tables) that you have separated by commas.  The strip
-        # method just remove the white space.  So this line is read
-        # from right to left, that is first the user input is parsed
-        # into a list of names, then the x is set to the list contents
-        # incremented through the list then the current x is striped and
-        # the words " natural join " are added to the long string
-        # being defined and stored in the variable tables.
+        # raw_input returns the entire line entered at the prompt. Thesplit(",") method then creates a list of the
+        # relations (tables) that you have separated by commas.  The strip method just remove the white space.  So this
+        # line is read from right to left, that is first the user input is parsed into a list of names, then the x is
+        # set to the list contents incremented through the list then the current x is striped and the words " natural
+        # join " are added to the long string being defined and stored in the variable tables.
 
         tables = [x.strip() + " natural join " for x in raw_input("Choose table(s): ").split(",")]
 
