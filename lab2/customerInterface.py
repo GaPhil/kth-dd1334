@@ -1,17 +1,5 @@
 #!/usr/bin/python
 import pgdb
-from sys import argv
-
-
-#  Here you shall complete the code to allow a customer to use this interface to check his or her shipments.
-#  You will fill in the 'shipments' function
-
-#  The code should not allow the customer to find out other customers or other booktown data.
-#  Security is taken as the customer knows his own customer_id, first and last names.  
-#  So not really so great but it illustrates how one would check a password if there were the addition of encryption.
-
-#  Most of the code is here except those little pieces needed to avoid injection attacks.  
-#  You might want to read up on pgdb, postgresql, and this useful function: pgdb.escape_string(some text)
 
 class DBContext:
     """DBContext is a small interface to a database that simplifies SQL.
@@ -47,31 +35,29 @@ class DBContext:
                 print("That was not a number, genius.... :(")
 
     def shipments(self):
-        # ID should be hard typed to an integer
-        #  So think that they can enter: 1 OR 1=1
         try:
-            customer_id = int(raw_input("customerID: "))
+            customer_id = int(raw_input("customerID: "))  # check int is taken in
         except (NameError, ValueError, TypeError, SyntaxError):
             print("That was not a number...")
             return
 
-        # These names inputs are terrible and allow injection attacks.
-        # So think that they can enter: Hilbert' OR 'a'='a
         try:
-            fname = pgdb.escape_string(raw_input("First Name: ").strip())
-            lname = pgdb.escape_string(raw_input("Last Name: ").strip())
+            fname = pgdb.escape_string(raw_input("First Name: ").strip())  # check string is taken in
+            lname = pgdb.escape_string(raw_input("Last Name: ").strip())  # check string is taken in
         except (NameError, ValueError, TypeError, SyntaxError):
             print("That was not a string...")
             return
-        query = """  SELECT first_name, last_name FROM customers WHERE customer_id = %s;""" % customer_id
+
+        query = "SELECT first_name, last_name FROM customers WHERE customer_id = %s;" % customer_id
 
         try:
-            print "The database is being checked:" + query
-            self.cur.execute(query)  # find fname and lname from customer_id
+            print "The database is being checked: " + query
+            self.cur.execute(query)  # find first name and last name given customer_id
         except (NameError, ValueError, TypeError, SyntaxError):
             print("Query execution failed!")
             return
 
+        # retrieves the results of the query in the format `Row(first_name='Chad', last_name='Allen')`
         result_list = self.cur.fetchone()
         if result_list is None:
             print "Customer ID does not exist."
@@ -83,26 +69,22 @@ class DBContext:
                 print "Name does not match ID!"
                 return
 
-        # THIS IS NOT RIGHT YOU MUST PRINT OUT a listing of shipment_id,ship_date,isbn,title for this customer
-
-        query = """  SELECT shipment_id, ship_date, shipments.isbn, title 
+        query = """ SELECT shipment_id, ship_date, shipments.isbn, title 
                       FROM shipments
                         JOIN editions
                           ON shipments.isbn = editions.isbn
                         JOIN books
                           ON editions.book_id = books.book_id
-                      WHERE customer_id = %s;""" % customer_id
+                      WHERE customer_id = %s; """ % customer_id
 
         try:
-            self.cur.execute(query)
+            self.cur.execute(query)  # extract shipment_id, ship_date, shipments.isbn, title given customer_id
             print "Customer: %d %s %s:" % (customer_id, fname, lname)
             print "shipment_id,ship_date,isbn,title"
             self.print_answer()
         except (NameError, ValueError, TypeError, SyntaxError):
             print("Execution failed!")
             return
-
-        self.print_answer()
 
     def exit(self):
         self.cur.close()
