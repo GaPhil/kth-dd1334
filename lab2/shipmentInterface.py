@@ -38,42 +38,69 @@ class DBContext:
 
     def makeShipments(self):
 
-        # THESE INPUT LINES  ARE NOT GOOD ENOUGH
-        # YOU NEED TO TYPE CAST/ESCAPE THESE AND CATCH EXCEPTIONS
-        CID = raw_input("cutomerID: ")
-        SID = int(input("shipment ID: "))
-        Sisbn = (raw_input("isbn: ").strip())
-        Sdate = raw_input("Ship date: ").strip()
-        # THIS IS NOT RIGHT  YOU MUST FORM A QUERY THAT HELPS
-        query = "SELECT something FROM somewhere WHERE conditions"
-        print query
-        # HERE YOU SHOULD start a transaction    
-
-        # YOU NEED TO Catch exceptions ie bad queries
-        self.cur.execute(query)
-        # HERE YOU NEED TO USE THE RESULT OF THE QUERY TO TEST IF THER ARE
-        # ANY BOOKS IN STOCK
-        # YOU NEED TO CHANGE THIS TO SOMETHING REAL
-        cnt = 0;
-        if cnt < 1:
-            print("No more books in stock :(")
+        # get input from user and check for types and escape removal
+        try:
+            customer_id = int(input("customer ID: "))
+            shipment_id = int(input("shipment ID: "))
+            isbn = pgdb.escape_string((raw_input("isbn: ").strip()))
+            ship_date = pgdb.escape_string(raw_input("Ship date: ").strip())
+        except (NameError, ValueError, TypeError, SyntaxError):
+            print "Please enter correct type!"
             return
-        else:
-            print "WE have the book in stock"
 
-        query = """UPDATE stock SET stock=stock-1 WHERE isbn='%s';""" % (Sisbn)
+        query = "SELECT stock FROM stock WHERE isbn='%s'" % isbn
         print query
-        # YOU NEED TO Catch exceptions  and rollback the transaction
-        self.cur.execute(query)
-        print "stock decremented"
 
-        query = """INSERT INTO shipments VALUES (%i, %i, '%s','%s');""" % (SID, CID, Sisbn, Sdate)
-        print query
-        # YOU NEED TO Catch exceptions and rollback the transaction
-        self.cur.execute(query)
-        print "shipment created"
-        # This ends the transaction (and starts a new one)    
-        self.conn.commit()
+        # start transaction
+        try:
+
+            # YOU NEED TO Catch exceptions ie bad queries
+            try:
+                self.cur.execute(query)
+            except (pgdb.DatabaseError, pgdb.OperationalError):
+                print("Bad query!")
+                return
+
+            result = self.cur.fetchone()
+            if not result:
+                print("No books found with isbn '%s'" % isbn)
+                return
+
+            # check if books are in stock
+            cnt = result[0]
+            if cnt < 1:
+                print("No more books in stock :(")
+                return
+            else:
+                print "WE have the book in stock"
+
+            query = """UPDATE stock SET stock=stock-1 WHERE isbn='%s';""" % isbn
+            print query
+
+            self.cur.execute(query)  # execute decrease stock
+
+            print "stock decremented"
+
+            query = """INSERT INTO shipments VALUES (%i, %i, '%s','%s');""" % (
+                shipment_id, customer_id, isbn, ship_date)
+            print query
+
+            try:
+                self.cur.execute(query)  # execute insert
+            except (pgdb.DatabaseError, pgdb.OperationalError):
+                print "Failed on insert!"
+                return
+
+            print "shipment created"
+
+            # This ends the transaction (and starts a new one)
+            self.conn.commit()
+
+        except (pgdb.DatabaseError, pgdb.OperationalError):
+            print "  Exception encountered while modifying table!"
+            self.conn.rollback()
+            print "  Rolling back."
+            return
 
     def showStock(self):
         query = """SELECT * FROM stock;"""
