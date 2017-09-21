@@ -72,7 +72,7 @@ class DBContext:
             except (NameError, ValueError, TypeError, SyntaxError):
                 print("That was not a number, genius.... :(")
 
-                # This function will be called if the user choses select.
+                # This function will be called if the user chooses select.
 
     def select(self):
         """Finds and prints tuples.
