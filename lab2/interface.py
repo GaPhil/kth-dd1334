@@ -143,12 +143,13 @@ class DBContext:
         column = raw_input("Enter the column that you wish to delete from: ")
         value = raw_input("Enter the value of the the column: ")
         try:
-            remove_query = """DELETE FROM %s WHERE %s = %s;""" % (table, column, value)
+            query = """DELETE FROM %s WHERE %s = %s;""" % (table, column, value)
         except (NameError, ValueError, TypeError, SyntaxError):
             print "  Bad input."
             return
-        print(remove_query)
-        self.cur.execute(remove_query)
+        print(query)
+        self.cur.execute(query)
+        self.conn.commit()
         # self.print_answer()
 
     def insert(self):
@@ -159,12 +160,13 @@ class DBContext:
         values = raw_input("Enter the values you wish to enter separated by commas: ")
 
         try:
-            insert_query = """INSERT INTO %s (%s) VALUES (%s);""" % (table, columns, values)
+            query = """INSERT INTO %s (%s) VALUES (%s);""" % (table, columns, values)
         except (NameError, ValueError, TypeError, SyntaxError):
             print "  Bad input."
             return
-        print(insert_query)
-        self.cur.execute(insert_query)
+        print(query)
+        self.cur.execute(query)
+        self.conn.commit()
         # self.print_answer()
 
     def exit(self):
