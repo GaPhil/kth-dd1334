@@ -1,5 +1,7 @@
 #!/usr/bin/python
 import pgdb
+import pg
+
 
 class DBContext:
     """DBContext is a small interface to a database that simplifies SQL.
@@ -41,12 +43,9 @@ class DBContext:
             print("That was not a number...")
             return
 
-        try:
-            fname = pgdb.escape_string(raw_input("First Name: ").strip())  # check string is taken in
-            lname = pgdb.escape_string(raw_input("Last Name: ").strip())  # check string is taken in
-        except (NameError, ValueError, TypeError, SyntaxError):
-            print("That was not a string...")
-            return
+        # Protect against SQL injection attacks to remove escape characters
+        fname = pgdb.escape_string(raw_input("First Name: ").strip())  # remove escape characters such as ' or \
+        lname = pgdb.escape_string(raw_input("Last Name: ").strip())  # remove escape characters such as ' or \
 
         query = "SELECT first_name, last_name FROM customers WHERE customer_id = %s;" % customer_id
 
