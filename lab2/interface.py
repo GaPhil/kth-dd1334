@@ -1,26 +1,12 @@
 #!/usr/bin/python
 
-# Lines that start as this one does are comments and have no effect on
-# the execution of the program.  (Most added by John Folkesson to help
-# understand the code.)
-
-# When you import the pgdb  module, all the
-# classes and functions in that module become available for you to
-# use.  For example you can now use the pgdb.connect() function to
-# establish a connection to your copy of the database. 
-
 import pgdb
-from sys import argv
 
 
-# we define a class that we will use in our main program
 class DBContext:
     """DBContext is a small interface to a database that simplifies SQL.
     Each function gathers the minimal amount of information required and executes the query."""
 
-    # we first define the class, its definitions, functions attributes,
-    # members ... what ever you like to call this stuff.  Then way down at
-    # the bottom of this file we will create on of these.
     # this __init___ operation is automatically called when the object is created.
 
     def __init__(self):  # PG-connection setup

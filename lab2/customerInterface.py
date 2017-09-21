@@ -1,6 +1,5 @@
 #!/usr/bin/python
 import pgdb
-import pg
 
 
 class DBContext:
