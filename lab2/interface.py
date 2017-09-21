@@ -40,9 +40,9 @@ class DBContext:
         # http://www.python.org/dev/peps/pep-0249/
         self.cur = self.conn.cursor()
 
-# Here we define a member function that we can later call repeatidly
+# Here we define a member function that we can later call repeatedly
     def print_menu(self):
-        """Prints a menu of all functions this program offers.  Returns the numerical correspondant of the choice made."""
+        """Prints a menu of all functions this program offers.  Returns the numerical correspondent of the choice made."""
         for i,x in enumerate(self.menu):
             print("%i. %s"%(i+1,x))
             # this get_int function is defined below
@@ -52,7 +52,7 @@ class DBContext:
         """Retrieves an integer from the user.
         If the user fails to submit an integer, it will reprompt until an integer is submitted."""
         while True:
-            # we go round here untill we get to return (ie while True)
+            # we go round here until we get to return (ie while True)
 
           #  The try statement works as follows.  First, the try
           #  clause (the statement(s) between the try and except
@@ -76,20 +76,20 @@ class DBContext:
                 # here we had a number but it was out of range
                 print("Invalid choice.")
             except (NameError,ValueError, TypeError, SyntaxError):
-                print("That was not a number, genious.... :(")
+                print("That was not a number, genius.... :(")
 
                 # This function will be called if the user choses select.
     def select(self):
         """Finds and prints tuples.
         Will query the user for the information required to identify a tuple.
         If the filter field is left blank, no filter will be used."""
-        # raw_input returns the entire line entered at the promt. The
+        # raw_input returns the entire line entered at the prompt. The
         # split(",") method then creates a list of the relations
         # (tables) that you have separated by commas.  The strip
         # method just remove the white space.  So this line is read
         # from right to left, that is first the user input is parsed
         # into a list of names, then the x is set to the list contents
-        # incremented thru the list then the current x is striped and
+        # incremented through the list then the current x is striped and
         # the words " natural join " are added to the long string
         # being defined and stored in the variable tables.
 
@@ -98,7 +98,7 @@ class DBContext:
 # Here we do some char pointer tricks to remove the extra " natural
 # join " (14 characters
         tables[len(tables)-1] = tables[len(tables)-1][0:len(tables[len(tables)-1])-14]
-# pring the result to the screen
+# print the result to the screen
         print tables
 # here columns becomes the string that you type at prompt for Choose columns.
         columns = raw_input("Choose column(s): ")
@@ -131,7 +131,17 @@ class DBContext:
         """Removes tuples.
         Will query the user for the information required to identify a tuple.
         If the filter field is left blank, no filters will be used."""
+        tables = [x.strip() + " natural join " for x in raw_input("Choose table(s): ").split(",")]
+ 
+        try:
+            remove_query = 
+        except (NameError, ValueError, TypeError, SyntaxError):
+            print 
+
         pass
+
+
+
 
     def insert(self):
         """inserts tuples.
