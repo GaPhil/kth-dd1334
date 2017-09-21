@@ -154,7 +154,18 @@ class DBContext:
     def insert(self):
         """inserts tuples.
         Will query the user for the information required to create tuples."""
-        pass
+        table = raw_input("Enter table you wish to insert into: ")
+        columns = raw_input("Enter the columns that you wish to add to separated by commas: ")
+        values = raw_input("Enter the values you wish to enter separated by commas: ")
+
+        try:
+            insert_query = """INSERT INTO %s (%s) VALUES (%s);""" % (table, columns, values)
+        except (NameError, ValueError, TypeError, SyntaxError):
+            print "  Bad input."
+            return
+        print(insert_query)
+        self.cur.execute(insert_query)
+        # self.print_answer()
 
     def exit(self):
         self.cur.close()
