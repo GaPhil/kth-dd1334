@@ -113,7 +113,6 @@ class DBContext:
         print(query)
         self.cur.execute(query)
         self.conn.commit()
-        # self.print_answer()
 
     def insert(self):
         """inserts tuples.
