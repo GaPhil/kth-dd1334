@@ -22,8 +22,7 @@ class DBContext:
         # Here we create an attribute of our class (DBContex) called
         # menu as a list of strings.
         self.menu = ["Select.", "Insert.", "Remove.", "Exit"]
-        # Here we create a cursor (see chap 9) and
-        # http://www.python.org/dev/peps/pep-0249/
+        # Here we create a cursor
         self.cur = self.conn.cursor()
 
     # Here we define a member function that we can later call repeatedly
@@ -39,15 +38,7 @@ class DBContext:
         """Retrieves an integer from the user.
         If the user fails to submit an integer, it will reprompt until an integer is submitted."""
         while True:
-            # we go round here until we get to return (ie while True)
-
-            #  The try statement works as follows.  First, the try clause (the statement(s) between the try and except
-            #  keywords) is executed. If no exception occurs, the except clause is skipped and execution of the try
-            # statement is finished. If an exception occurs during execution of the try clause, the rest of the clause
-            # is skipped. Then if its type matches the exception named after the except keyword, the except clause is
-            # executed, and then execution continues after the try statement.  If an exception occurs which does not
-            # match the exception named in the except clause, it is passed on to outer try statements; if no handler is
-            # found, it is an unhandled exception and execution stops with a message as shown above.
+            # get user input
             try:
                 # an Error here (ie wrong input type) jumps to except
                 choice = int(input("Choose: "))
