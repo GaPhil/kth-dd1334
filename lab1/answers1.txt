@@ -1,4 +1,4 @@
-You are now connected to database "booktown" as user "gajland".
+You are now connected to database "booktown" as user "*******".
 
 *** Task 1 ***
 
